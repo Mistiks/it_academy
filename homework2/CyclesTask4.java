@@ -16,5 +16,18 @@ public class CyclesTask4 {
                 break;
             }
         }
+
+        a = 1L;
+
+        for(;;) {
+            beforeOverflow = a;
+            a *= 3;
+            afterOverflow = a;
+            if (Long.MAX_VALUE / 3 < afterOverflow) {
+                System.out.println("Число до переполнения, высчитанное вторым способом = " + beforeOverflow * 3);
+                System.out.println("Число после переполнения, высчитанное вторым способом = " + afterOverflow * 3);
+                break;
+            }
+        }
     }
 }
