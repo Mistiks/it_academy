@@ -13,7 +13,7 @@ public class ArraysTask3 {
         do {
             if (!input.hasNextInt()) {
                 System.out.println("Неверный ввод. Повторите попытку: ");
-                input.nextLine();
+                input.next();
             } else {
                 numberOfElements = input.nextInt();
                 if (numberOfElements <= 0) {
@@ -35,7 +35,7 @@ public class ArraysTask3 {
             do {
                 if (!input.hasNextInt()){
                     System.out.println("Неверный ввод. Повторите попытку: ");
-                    input.nextLine();
+                    input.next();
                 } else {
                     array[i] = input.nextInt();
                     inputFlag = true;

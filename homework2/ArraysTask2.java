@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class ArraysTask2 {
     public static void main(String[] args) {
         int numberOfElements = 0;
-        int counter = 0;
         boolean inputFlag = false;
         Scanner input = new Scanner(System.in);
 
@@ -14,7 +13,7 @@ public class ArraysTask2 {
         do {
             if (!input.hasNextInt()) {
                 System.out.println("Неверный ввод. Повторите попытку: ");
-                input.nextLine();
+                input.next();
             } else {
                 numberOfElements = input.nextInt();
                 if (numberOfElements <= 0) {
@@ -34,7 +33,7 @@ public class ArraysTask2 {
             do {
                 if (!input.hasNextInt()){
                     System.out.println("Неверный ввод. Повторите попытку: ");
-                    input.nextLine();
+                    input.next();
                 } else {
                     array[i] = input.nextInt();
                     inputFlag = true;

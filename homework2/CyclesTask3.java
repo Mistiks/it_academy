@@ -15,7 +15,7 @@ public class CyclesTask3 {
         do {
             if (!input.hasNextDouble()){
                 System.out.println("Неверный ввод. Повторите попытку: ");
-                input.nextLine();
+                input.next();
             } else {
                 number = input.nextDouble();
                 inputFlag = true;
@@ -28,7 +28,7 @@ public class CyclesTask3 {
         do {
             if (!input.hasNextInt()) {
                 System.out.println("Неверный ввод. Повторите попытку: ");
-                input.nextLine();
+                input.next();
             } else {
                 degree = input.nextInt();
                 if (degree <= 0) {
