@@ -1,18 +1,10 @@
 package homeworks.homework3;
 
-public class CalculatorWithCounter {
+public class CalculatorWithCounter implements Calculations {
     private Calculations calculations;
     private int counter = 0;
 
-    public CalculatorWithCounter(CalculatorWithOperator calculator) {
-        this.calculations = calculator;
-    }
-
-    public CalculatorWithCounter(CalculatorWithMathCopy calculator) {
-        this.calculations = calculator;
-    }
-
-    public CalculatorWithCounter(CalculatorWithMathExtends calculator) {
+    public CalculatorWithCounter(Calculations calculator) {
         this.calculations = calculator;
     }
 

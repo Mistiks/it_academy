@@ -2,7 +2,8 @@ package homeworks.homework3;
 
 public class CalculatorWithCounterMain {
     public static void main(String[] args) {
-        CalculatorWithMathCopy calc = new CalculatorWithMathCopy();
+        CalculatorWithOperator calc = new CalculatorWithOperator();
+        Calculations calculations = calc;
         CalculatorWithCounter calculator = new CalculatorWithCounter(calc);
         double result = 0d;
 
