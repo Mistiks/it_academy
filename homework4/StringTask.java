@@ -28,7 +28,7 @@ public class StringTask {
 
         if (number < 1000 && !secondType) {
             return prescriptionToThousand(number);
-        } else if ( number < 1000 && secondType) {
+        } else if ( number < 1000) {
             return prescriptionToThousandSecond(number);
         } else if (number < 10000) {
             return prescriptionToTenThousand(number);
@@ -149,7 +149,7 @@ public class StringTask {
 
         if (number < 1000 && !secondType) {
             return prescriptionToThousand(number);
-        } else if (number < 1000 && secondType){
+        } else if (number < 1000){
             return prescriptionToThousandSecond(number);
         }
 
@@ -157,7 +157,6 @@ public class StringTask {
             return prescriptionToTwentyThousand(number);
         }
 
-        if (number < 10000) {
             if (number / 1000 - 1 == 0 && number % 1000 != 0 && !secondType) {
                 return digitsSecondCase[0].substring(0, 1).toUpperCase() + digitsSecondCase[0].substring(1)
                         + thousandsCases[0] + prescriptionToThousand(number % 1000).toLowerCase();
@@ -180,7 +179,7 @@ public class StringTask {
                             + digitsSecondCase[number / 1000 - 1].substring(1) + thousandsCases[1]
                             + prescriptionToThousandSecond(number % 1000).toLowerCase();
                 }
-            } else if (number / 1000 - 1 >= 4 && number / 1000 - 1 < 9) {
+            } else if (number / 1000 - 1 >= 4) {
                 if (number % 1000 == 0) {
                     return digitsSecondCase[number / 1000 - 1].substring(0, 1).toUpperCase()
                             + digitsSecondCase[number / 1000 - 1].substring(1) + thousandsCases[2];
@@ -194,7 +193,6 @@ public class StringTask {
                             + prescriptionToThousandSecond(number % 1000).toLowerCase();
                 }
             }
-        }
         return "Ошибка в вычиcлениях";
     }
 
@@ -428,6 +426,11 @@ public class StringTask {
         }
     }
 
+    /*
+     * Метод преобразозывает количество прошедших дней в недели
+     * @param day - количество дней
+     * @return String - количество прошедших недель
+     */
     public String toWeek(int day) {
         int weeks = day / 7;
 
@@ -435,12 +438,69 @@ public class StringTask {
             return "Неверно введено количество дней";
         } else if ((weeks % 10 == 0) || (weeks % 10 >= 5) || (weeks >= 11 && weeks <= 19)) {
             return weeks + " недель";
-        } else if (weeks % 10 >= 2 && weeks % 10 <=4) {
+        } else if (weeks % 10 >= 2 && weeks % 10 <= 4) {
             return weeks + " недели";
         } else if (weeks % 10 == 1){
             return weeks + " неделя";
         } else {
             return "Невозможно вычислить число недель";
         }
+    }
+
+    /*
+     * Метод преобразозывает миллисекунды в часы, минуты, секунды, миллисекунды
+     * @param millisecond - число миллисекунд
+     * @param shortFormat - формат вывода
+     * @return String - преобразованная строка
+     */
+    public String toHoursMinuteSecondMillisecond(long millisecond, boolean shortFormat) {
+        String resultString = "";
+        int hours = (int) millisecond / 3_600_000;
+        int minutes = (int) ((millisecond - 3_600_000 * hours) / 60_000);
+        int seconds = (int) ((millisecond - 3_600_000 * hours - 60_000 * minutes) / 1000);
+        int milliseconds = (int) (millisecond - 3_600_000 * hours - 60_000 * minutes - 1000 * seconds);
+
+        if (millisecond < 0) {
+            return "Преобразование невозможно";
+        }
+
+        if (shortFormat) {
+            return String.format("%02d", hours) + ":" + String.format("%02d", minutes) + ":"
+                    + String.format("%02d", seconds) + "." + String.format("%03d", milliseconds);
+        }
+
+        if (((hours % 10 == 0) || (hours % 10 >= 5) || (hours >= 11 && hours <= 19))) {
+            resultString = hours + " часов ";
+        } else if (hours % 10 >= 2 && hours % 10 <= 4) {
+            resultString = hours + " часа ";
+        } else if (hours % 10 == 1) {
+            resultString = hours + " час ";
+        }
+
+        if (((minutes % 10 == 0) || (minutes % 10 >= 5) || (minutes >= 11 && minutes <= 19))) {
+            resultString = resultString + minutes + " минут ";
+        } else if (minutes % 10 >= 2 && minutes % 10 <= 4) {
+            resultString = resultString + minutes + " минуты ";
+        } else if (minutes % 10 == 1) {
+            resultString = resultString + minutes + " минута ";
+        }
+
+        if (((seconds % 10 == 0) || (seconds % 10 >= 5) || (seconds >= 11 && seconds <= 19))) {
+            resultString = resultString + seconds + " секунд ";
+        } else if (seconds % 10 >= 2 && seconds % 10 <= 4) {
+            resultString = resultString + seconds + " секунды ";
+        } else if (seconds % 10 == 1) {
+            resultString = resultString + seconds + " секунда ";
+        }
+
+        if (((milliseconds % 10 == 0) || (milliseconds % 10 >= 5) || (milliseconds >= 11 && milliseconds <= 19))) {
+            resultString = resultString + milliseconds + " миллисекунд ";
+        } else if (milliseconds % 10 >= 2 && milliseconds % 10 <= 4) {
+            resultString = resultString + milliseconds + " миллисекунды ";
+        } else if (milliseconds % 10 == 1) {
+            resultString = resultString + milliseconds + " миллисекунда ";
+        }
+
+        return resultString;
     }
 }
