@@ -7,7 +7,7 @@ public class WarAndPeaceMain {
         EasySearch easySearch = new EasySearch();
         RegExSearch regExSearch = new RegExSearch();
         WarAndPeace warAndPeace = new WarAndPeace(regExSearch, "D:/Programs/Java course/it_academy/src/homeworks" +
-                                                                        "/homework5/Война и мир_книга.txt");
+                                                                "/homework5/Война и мир_книга.txt");
         Scanner scanner = new Scanner(System.in);
         String text = FileReader.readAllBytesJava7(warAndPeace.getFilePath());
         String searchWord;
