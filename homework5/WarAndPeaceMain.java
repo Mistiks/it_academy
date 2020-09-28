@@ -5,8 +5,9 @@ import java.util.Scanner;
 public class WarAndPeaceMain {
     public static void main(String[] args) {
         EasySearch easySearch = new EasySearch();
-        WarAndPeace warAndPeace = new WarAndPeace(easySearch, "D:/Programs/Java course/it_academy/src/homeworks" +
-                                                            "/homework5/Война и мир_книга.txt");
+        RegExSearch regExSearch = new RegExSearch();
+        WarAndPeace warAndPeace = new WarAndPeace(regExSearch, "D:/Programs/Java course/it_academy/src/homeworks" +
+                                                                        "/homework5/Война и мир_книга.txt");
         Scanner scanner = new Scanner(System.in);
         String text = FileReader.readAllBytesJava7(warAndPeace.getFilePath());
         String searchWord;
