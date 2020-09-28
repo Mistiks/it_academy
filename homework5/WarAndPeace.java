@@ -3,13 +3,13 @@ package homeworks.homework5;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class WarAndPeace {
+public class WarAndPeace implements ISearchEngine{
+    private ISearchEngine searchEngine;
     private String filePath;
     private HashSet<String> wordsSet;
-    private Map<String, Integer> wordsMap;
-    private List<String> wordsList;
 
-    public WarAndPeace(String filePath) {
+    public WarAndPeace(ISearchEngine searchEngine, String filePath) {
+        this.searchEngine = searchEngine;
         this.filePath = filePath;
     }
 
@@ -21,17 +21,13 @@ public class WarAndPeace {
         return this.wordsSet;
     }
 
-    public Map<String, Integer> getWordsMap() {
-        return this.wordsMap;
-    }
-
     public void createWordsSet(String text) {
         this.wordsSet = new HashSet<String>(Arrays.asList(text.split("\\P{L}+")));
     }
 
-    public void createWordsMap(String text) { // ключ - строка, значение - количество повторений
-        this.wordsList = Arrays.asList(text.split("\\P{L}+"));
-        this.wordsMap = new HashMap<String, Integer>();
+    public void printMostFrequentWords(String text, int amount) {
+        List<String> wordsList = Arrays.asList(text.split("\\P{L}+"));
+        Map<String, Integer> wordsMap = new HashMap<String, Integer>();
 
         for (int i = 0; i < wordsList.size(); i++) {
             if (wordsMap.containsKey(wordsList.get(i))) {
@@ -42,9 +38,7 @@ public class WarAndPeace {
                 wordsMap.put(wordsList.get(i), 1);
             }
         }
-    }
 
-    public void printMostFrequentWords(int amount) {
         List<Entry<String, Integer>> sortingList = new LinkedList<Entry<String, Integer>>(wordsMap.entrySet());
 
         sortingList.sort(new Comparator<Entry<String, Integer>>() {
@@ -72,16 +66,9 @@ public class WarAndPeace {
         }
     }
 
-    public long searchWordRegisterFree(String word) {
-        long amount = 0L;
-
-        if (wordsMap.containsKey(word.substring(0,1).toUpperCase() + word.substring(1))) {
-            amount += wordsMap.get(word.substring(0,1).toUpperCase() + word.substring(1));
-        }
-
-        if (wordsMap.containsKey(word.substring(0,1).toLowerCase() + word.substring(1))) {
-            amount += wordsMap.get(word.substring(0,1).toLowerCase() + word.substring(1));
-        }
-        return amount;
+    @Override
+    public long search(String text, String word) {
+        return (searchEngine.search(text, word.substring(0,1).toUpperCase() + word.substring(1)) +
+                searchEngine.search(text,word.substring(0,1).toLowerCase() + word.substring(1)));
     }
 }
