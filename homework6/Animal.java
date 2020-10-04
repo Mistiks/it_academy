@@ -16,4 +16,8 @@ public class Animal {
     public String getNick() {
         return this.nick;
     }
+
+    public String getInfo() {
+        return "Nick: " + getNick() + "\t" + " Age: " + getAge();
+    }
 }

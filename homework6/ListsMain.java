@@ -5,61 +5,33 @@ import java.util.*;
 public class ListsMain {
 
     public static void main(String[] args) {
-        final char[] allLetters = ("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789").toCharArray();
-        Random random = new Random();
+        PersonAndAnimalOperator operator = new PersonAndAnimalOperator();
         PersonComparator personComparator = new PersonComparator();
-        Person[] persons = new Person[4000000];
         List<Person> linkedPerson = new LinkedList<>();
         List<Person> arrayPerson = new ArrayList<>();
         Set<Person> hashPerson = new HashSet<>();
         Set<Person> treePerson = new TreeSet<>(personComparator);
-        StringBuilder nickBuilder = new StringBuilder();
-        StringBuilder passwordBuilder = new StringBuilder();
-        int nickLength;
-        int passwordLength;
         long startTimer;
         long endTimer;
         List<Long> timeResults = new ArrayList<>();
 
-        for (int i = 0; i < 4000000; i++) {
-            nickLength = random.nextInt(13) + 3; // длина ника от 3 до 15 символов
-            passwordLength = random.nextInt(6) + 5; // длина пароля от 5 до 10 символов
-
-            for (int j = 0; j < nickLength; j++) {
-                nickBuilder.append(allLetters[random.nextInt(allLetters.length)]);
-            }
-
-            for (int k = 0; k < passwordLength; k++) {
-                passwordBuilder.append(allLetters[random.nextInt(allLetters.length)]);
-            }
-
-            persons[i] = new Person(nickBuilder.toString(), passwordBuilder.toString());
-            nickBuilder.setLength(0);
-            passwordBuilder.setLength(0);
-        }
-
-        Person[] person1 = Arrays.copyOfRange(persons, 0, 999999);
-        Person[] person2 = Arrays.copyOfRange(persons, 1000000, 1999999);
-        Person[] person3 = Arrays.copyOfRange(persons, 2000000, 2999999);
-        Person[] person4 = Arrays.copyOfRange(persons, 3000000, 3999999);
-
         startTimer = System.currentTimeMillis();
-        Collections.addAll(linkedPerson, person1);
+        Collections.addAll(linkedPerson, operator.createPersons(1000000));
         endTimer = System.currentTimeMillis();
         timeResults.add(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
-        Collections.addAll(arrayPerson, person2);
+        Collections.addAll(arrayPerson, operator.createPersons(1000000));
         endTimer = System.currentTimeMillis();
         timeResults.add(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
-        Collections.addAll(hashPerson, person3);
+        Collections.addAll(hashPerson, operator.createPersons(1000000));
         endTimer = System.currentTimeMillis();
         timeResults.add(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
-        Collections.addAll(treePerson, person4);
+        Collections.addAll(treePerson, operator.createPersons(1000000));
         endTimer = System.currentTimeMillis();
         timeResults.add(endTimer - startTimer);
 

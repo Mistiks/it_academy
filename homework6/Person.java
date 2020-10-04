@@ -4,11 +4,6 @@ public class Person {
     private String nick;
     private String password;
 
-    public Person() {
-        this.nick = "Default";
-        this.password = "123456";
-    }
-
     public Person(String nick, String password) {
         this.nick = nick;
         this.password = password;
