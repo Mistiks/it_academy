@@ -155,4 +155,19 @@ public class ListsMain {
         System.out.println("Операция: удаление HashSet (iterator). Заняла " + timeResults.get(14) + " мс");
         System.out.println("Операция: удаление TreeSet (iterator). Заняла " + timeResults.get(15) + " мс");
     }
+
+    public static <T> void sort(List<T> list, Comparator<T> comparator) {
+        boolean isSorted = false;
+
+        while(!isSorted) {
+            isSorted = true;
+
+            for (int i = 0; i < list.size() - 1; i++) {
+                if (comparator.compare(list.get(i), list.get(i + 1)) > 0) {
+                    list.set(i, list.set(i + 1, list.get(i)));  // set возвращает измененное значение
+                    isSorted = false;
+                }
+            }
+        }
+    }
 }
