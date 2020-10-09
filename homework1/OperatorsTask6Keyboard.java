@@ -14,11 +14,7 @@ public class OperatorsTask6Keyboard {
             array[i] = input.nextInt();
         }
 
-        result = createPhoneNumber(array);
+        result = OperatorsTask6.createPhoneNumber(array);
         System.out.println(result);
-    }
-
-    static String createPhoneNumber(int[] numbers) { ;
-        return "(" + numbers[0] + numbers[1] + numbers[2] + ") " + numbers[3] + numbers[4] + numbers[5] + "-" + numbers[6] + numbers[7] + numbers[8] + numbers[9];
     }
 }

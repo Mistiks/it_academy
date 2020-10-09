@@ -74,23 +74,21 @@ public class DataContainer<T> {
     }
 
     public String toString() {
-        T[] outputArray;
-        this.copy = Arrays.copyOf(data, this.elementsCounter);
-        int counter = this.elementsCounter;
-        int cnt = this.elementsCounter;
+        StringBuilder builder = new StringBuilder();
 
-        for (int i = 0; i < cnt; i++) {
-            if (data[i] == null) {
-                delete(i);
-                i--;
-                cnt--;
+        builder.append("[");
+
+        for (int i = 0; i < this.data.length; i++) {
+            if (this.data[i] == null) {
+                continue;
             }
+
+            builder.append(this.data[i].toString()).append(", ");
         }
 
-        outputArray = Arrays.copyOf(this.data, this.elementsCounter);
-        this.data = Arrays.copyOf(copy, counter);
-        this.elementsCounter = counter;
-        return Arrays.toString(outputArray);
+        builder.append("]");
+
+        return builder.toString().replaceAll(", ]","]");
     }
 
     public void sort(Comparator<T> comparator) {

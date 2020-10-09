@@ -14,17 +14,25 @@ public class SortTask1 {
         boolean inputFlag = false;
 
         System.out.println("Первый тестовый массив до сортировки: " + Arrays.toString(testArray1));
-        System.out.println("Первый тестовый массив после сортировки пузырьком: " + Arrays.toString(bubbleSort(testArray1)));
-        System.out.println("Первый тестовый массив после шейкерной сортировки: " + Arrays.toString(shakerSort(testArray1)));
+        bubbleSort(testArray1);
+        System.out.println("Первый тестовый массив после сортировки пузырьком: " + Arrays.toString(testArray1));
+        shakerSort(testArray1);
+        System.out.println("Первый тестовый массив после шейкерной сортировки: " + Arrays.toString(testArray1));
         System.out.println("Второй тестовый массив до сортировки: " + Arrays.toString(testArray2));
-        System.out.println("Второй тестовый массив после сортировки пузырьком: " + Arrays.toString(bubbleSort(testArray2)));
-        System.out.println("Второй тестовый массив после шейкерной сортировки: " + Arrays.toString(shakerSort(testArray2)));
+        bubbleSort(testArray2);
+        System.out.println("Второй тестовый массив после сортировки пузырьком: " + Arrays.toString(testArray2));
+        shakerSort(testArray2);
+        System.out.println("Второй тестовый массив после шейкерной сортировки: " + Arrays.toString(testArray2));
         System.out.println("Третий тестовый массив до сортировки: " + Arrays.toString(testArray3));
-        System.out.println("Третий тестовый массив после сортировки пузырьком: " + Arrays.toString(bubbleSort(testArray3)));
-        System.out.println("Третий тестовый массив после шейкерной сортировки: " + Arrays.toString(shakerSort(testArray3)));
+        bubbleSort(testArray3);
+        System.out.println("Третий тестовый массив после сортировки пузырьком: " + Arrays.toString(testArray3));
+        shakerSort(testArray3);
+        System.out.println("Третий тестовый массив после шейкерной сортировки: " + Arrays.toString(testArray3));
         System.out.println("Четвертый тестовый массив до сортировки: " + Arrays.toString(testArray4));
-        System.out.println("Четвертый тестовый массив после сортировки пузырьком: " + Arrays.toString(bubbleSort(testArray4)));
-        System.out.println("Четвертый тестовый массив после шейкерной сортировки: " + Arrays.toString(shakerSort(testArray4)));
+        bubbleSort(testArray4);
+        System.out.println("Четвертый тестовый массив после сортировки пузырьком: " + Arrays.toString(testArray4));
+        shakerSort(testArray4);
+        System.out.println("Четвертый тестовый массив после шейкерной сортировки: " + Arrays.toString(testArray4));
 
         int randomLength = (int) (Math.random() * 20 + 5); // размер массива от 5 до 25 элементов
         int[] randomArray = new int[randomLength];
@@ -34,8 +42,10 @@ public class SortTask1 {
         }
 
         System.out.println("Рандомный массив до сортировки: " + Arrays.toString(randomArray));
-        System.out.println("Рандомный массив после сортировки пузырьком: " + Arrays.toString(bubbleSort(randomArray)));
-        System.out.println("Рандомный массив после шейкерной сортировки: " + Arrays.toString(shakerSort(randomArray)));
+        bubbleSort(randomArray);
+        System.out.println("Рандомный массив после сортировки пузырьком: " + Arrays.toString(randomArray));
+        shakerSort(randomArray);
+        System.out.println("Рандомный массив после шейкерной сортировки: " + Arrays.toString(randomArray));
 
         System.out.println("Введите размер массива: ");
 
@@ -71,11 +81,13 @@ public class SortTask1 {
         }
 
         System.out.println("Массив, введенный с консоли, до сортировки: " + Arrays.toString(array));
-        System.out.println("Массив, введенный с консоли, после сортировки пузырьком: " + Arrays.toString(bubbleSort(array)));
-        System.out.println("Массив, введенный с консоли, после шейкерной сортировки: " + Arrays.toString(shakerSort(array)));
+        bubbleSort(array);
+        System.out.println("Массив, введенный с консоли, после сортировки пузырьком: " + Arrays.toString(array));
+        shakerSort(array);
+        System.out.println("Массив, введенный с консоли, после шейкерной сортировки: " + Arrays.toString(array));
     }
 
-    static int[] bubbleSort(int[] inputArray) {
+    static void bubbleSort(int[] inputArray) {
         int temp = 0;
         boolean isSorted = false;
 
@@ -91,11 +103,9 @@ public class SortTask1 {
                 }
             }
         }
-
-        return inputArray;
     }
 
-    static int[] shakerSort(int[] inputArray) {
+    static void shakerSort(int[] inputArray) {
         int temp = 0;
         int leftBorder = 0;
         int rightBorder = inputArray.length - 1;
@@ -126,7 +136,5 @@ public class SortTask1 {
 
             leftBorder++;
         }
-
-        return inputArray;
     }
 }

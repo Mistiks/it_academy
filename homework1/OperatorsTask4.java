@@ -12,10 +12,6 @@ public class OperatorsTask4 {
     }
 
     static boolean sleepIn(boolean weekday, boolean vacation) {
-        if (weekday == false || vacation == true) {
-            return true;
-        } else {
-            return false;
-        }
+        return !weekday || vacation;
     }
 }

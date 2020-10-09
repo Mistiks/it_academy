@@ -9,6 +9,23 @@ public class OperatorsTask6 {
     }
 
     static String createPhoneNumber(int[] numbers) { ;
-        return "(" + numbers[0] + numbers[1] + numbers[2] + ") " + numbers[3] + numbers[4] + numbers[5] + "-" + numbers[6] + numbers[7] + numbers[8] + numbers[9];
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < numbers.length; i++) {
+            if (i == 0) {
+                builder.append("(");
+                builder.append(numbers[i]);
+            } else if (i == 2) {
+                builder.append(numbers[i]);
+                builder.append(") ");
+            } else if (i == 5) {
+                builder.append(numbers[i]);
+                builder.append("-");
+            } else {
+                builder.append(numbers[i]);
+            }
+        }
+
+        return builder.toString();
     }
 }
