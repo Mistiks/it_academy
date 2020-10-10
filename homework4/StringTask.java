@@ -1,19 +1,19 @@
 package homeworks.homework4;
 
 public class StringTask {
-    final String[] digits = new String[]{ "один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ",
+    private final String[] digits = new String[]{ "один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ",
             "восемь ", "девять "};
-    final String[] digitsSecondCase = new String[]{ "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ",
+    private final String[] digitsSecondCase = new String[]{ "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ",
             "восемь ", "девять "};
-    final String[] secondDozen = new String[]{ "десять ", "одиннадцать ", "двенадцать ", "тринадцать ",
+    private final String[] secondDozen = new String[]{ "десять ", "одиннадцать ", "двенадцать ", "тринадцать ",
             "четырнадцать ", "пятнадцать ", "шестнадцать ", "семнадцать ",
             "восемнадцать ", "девятнадцать "};
-    final String[] dozens = new String[]{ "десять ", "двадцать ", "тридцать ", "сорок ", "пятьдесят ",
+    private final String[] dozens = new String[]{ "десять ", "двадцать ", "тридцать ", "сорок ", "пятьдесят ",
             "шестьдесят ", "семьдесят ", "восемьдесят ", "девяносто "};
-    final String[] hundreds = new String[]{ "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ",
+    private final String[] hundreds = new String[]{ "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ",
             "семьсот ", "восемьсот ", "девятьсот "};
-    final String[] thousandsCases = new String[]{ "тысяча ", "тысячи ", "тысяч "};
-    final String[] millionCases = new String[]{ "миллион ", "миллиона ", "миллионов "};
+    private final String[] thousandsCases = new String[]{ "тысяча ", "тысячи ", "тысяч "};
+    private final String[] millionCases = new String[]{ "миллион ", "миллиона ", "миллионов "};
     private boolean secondType = false;
 
     public void setSecondType(boolean secondType) {
@@ -298,7 +298,7 @@ public class StringTask {
             } else if (number / 1000000 >= 2 && number / 1000000 < 5) {
                 return digits[number / 1000000 - 1].substring(0, 1).toUpperCase()
                         + digits[number / 1000000 - 1].substring(1) + millionCases[1];
-            } else if (number / 1000000 >= 5 && number / 1000000 <= 9){
+            } else if (number / 1000000 >= 5){
                 return digits[number / 1000000 - 1].substring(0, 1).toUpperCase()
                         + digits[number / 1000000 - 1].substring(1) + millionCases[2];
             }
@@ -417,12 +417,12 @@ public class StringTask {
             if (fractionalPart % 10 == 1 && fractionalPart != 11) {
                 return toString(wholePart) + "целая " + toString(Math.abs(fractionalPart)).toLowerCase() + "сотая ";
             } else {
-                return toString(wholePart) + "целая " + toString(Math.abs(fractionalPart)).toLowerCase() + " сотых ";
+                return toString(wholePart) + "целая " + toString(Math.abs(fractionalPart)).toLowerCase() + "сотых ";
             }
         } else if (fractionalPart % 10 == 1 && fractionalPart != 11) {
             return toString(wholePart) + "целых " + toString(Math.abs(fractionalPart)).toLowerCase() + "сотая ";
         } else {
-            return toString(wholePart) + "целых " + toString(Math.abs(fractionalPart)).toLowerCase() + " сотых ";
+            return toString(wholePart) + "целых " + toString(Math.abs(fractionalPart)).toLowerCase() + "сотых ";
         }
     }
 
