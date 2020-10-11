@@ -1,5 +1,6 @@
 package homeworks.homework6;
 
+import homeworks.homework2.SortTask1;
 import java.util.*;
 
 public class PersonAndAnimalOperator {
@@ -55,5 +56,83 @@ public class PersonAndAnimalOperator {
         }
 
         return result;
+    }
+
+    public void personListOperations (Collection list, Comparator<Person> comparator) {
+        Person[] array = (Person[]) list.toArray(new Person[0]);
+        List<Long> timeResults = new ArrayList<>();
+        long startTimer;
+        long endTimer;
+
+        SortTask1.bubbleSort(array, comparator);
+        list.clear();
+        Collections.addAll(list, array);
+
+        Iterator<Person> iterator1 = list.iterator();
+        startTimer = System.currentTimeMillis();
+        while (iterator1.hasNext()) {
+            System.out.println(iterator1.next().getInfo());
+        }
+        endTimer = System.currentTimeMillis();
+        timeResults.add(endTimer - startTimer);
+
+        startTimer = System.currentTimeMillis();
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(array[i].getInfo());
+        }
+        endTimer = System.currentTimeMillis();
+        timeResults.add(endTimer - startTimer);
+
+        Iterator<Person> iterator2 = list.iterator();
+        startTimer = System.currentTimeMillis();
+        while (iterator2.hasNext()) {
+            iterator2.next();
+            iterator2.remove();
+        }
+        endTimer = System.currentTimeMillis();
+        timeResults.add(endTimer - startTimer);
+
+        System.out.println("Операция: итерирование коллекции (iterator). Заняла " + timeResults.get(0) + " мс");
+        System.out.println("Операция: итерирование массива (for). Заняла " + timeResults.get(1) + " мс");
+        System.out.println("Операция: удаление коллекции (iterator). Заняла " + timeResults.get(2) + " мс");
+    }
+
+    public void animalListOperations (Collection list, Comparator<Animal> comparator) {
+        Animal[] array = (Animal[]) list.toArray(new Animal[0]);
+        List<Long> timeResults = new ArrayList<>();
+        long startTimer;
+        long endTimer;
+
+        SortTask1.bubbleSort(array, comparator);
+        list.clear();
+        Collections.addAll(list, array);
+
+        Iterator<Animal> iterator1 = list.iterator();
+        startTimer = System.currentTimeMillis();
+        while (iterator1.hasNext()) {
+            System.out.println(iterator1.next().getInfo());
+        }
+        endTimer = System.currentTimeMillis();
+        timeResults.add(endTimer - startTimer);
+
+        startTimer = System.currentTimeMillis();
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(array[i].getInfo());
+        }
+        endTimer = System.currentTimeMillis();
+        timeResults.add(endTimer - startTimer);
+
+        Iterator<Animal> iterator2 = list.iterator();
+        startTimer = System.currentTimeMillis();
+        while (iterator2.hasNext()) {
+            iterator2.next();
+            iterator2.remove();
+        }
+        endTimer = System.currentTimeMillis();
+        timeResults.add(endTimer - startTimer);
+
+        System.out.println("Операция: итерирование коллекции (iterator). Заняла " + timeResults.get(0) + " мс");
+        System.out.println("Операция: итерирование массива (for). Заняла " + timeResults.get(1) + " мс");
+        System.out.println("Операция: удаление коллекции (iterator). Заняла " + timeResults.get(2) + " мс");
     }
 }

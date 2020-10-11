@@ -1,6 +1,7 @@
 package homeworks.homework2;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class SortTask1 {
@@ -87,7 +88,7 @@ public class SortTask1 {
         System.out.println("Массив, введенный с консоли, после шейкерной сортировки: " + Arrays.toString(array));
     }
 
-    static void bubbleSort(int[] inputArray) {
+    public static void bubbleSort(int[] inputArray) {
         int temp = 0;
         boolean isSorted = false;
 
@@ -105,7 +106,7 @@ public class SortTask1 {
         }
     }
 
-    static void shakerSort(int[] inputArray) {
+    public static void shakerSort(int[] inputArray) {
         int temp = 0;
         int leftBorder = 0;
         int rightBorder = inputArray.length - 1;
@@ -135,6 +136,24 @@ public class SortTask1 {
             }
 
             leftBorder++;
+        }
+    }
+
+    public static <T> void bubbleSort(T[] inputArray, Comparator<T> comparator) {
+        T temp;
+        boolean isSorted = false;
+
+        while(!isSorted) {
+            isSorted = true;
+
+            for (int i = 0; i < inputArray.length - 1; i++) {
+                if (comparator.compare(inputArray[i], inputArray[i + 1]) > 0) {
+                    temp = inputArray[i];
+                    inputArray[i] = inputArray[i + 1];
+                    inputArray[i + 1] = temp;
+                    isSorted = false;
+                }
+            }
         }
     }
 }
