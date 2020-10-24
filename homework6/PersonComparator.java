@@ -14,5 +14,3 @@ public class PersonComparator implements Comparator<Person> {
         return person1.getNick().compareTo(person2.getNick());
     }
 }
-
-

@@ -14,4 +14,3 @@ public class AnimalComparator implements Comparator<Animal> {
         return animal1.getNick().compareTo(animal2.getNick());
     }
 }
-

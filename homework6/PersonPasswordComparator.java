@@ -8,5 +8,3 @@ public class PersonPasswordComparator implements Comparator<Person> {
         return person1.getPassword().length() - person2.getPassword().length();
     }
 }
-
-
