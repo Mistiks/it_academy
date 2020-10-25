@@ -11,18 +11,25 @@ import java.net.URL;
 public abstract class SiteLoader {
 
     public enum Currency{
-        USD("145"),
-        EUR("292"),
-        RUB("298");
+        USD("145", 840),
+        EUR("292", 978),
+        RUB("298", 643);
+        //BYN("933", 933);
 
-        private String id;
+        private final String id;
+        private final int alfaId;
 
-        Currency(String id) {
+        Currency(String id, int alfaId) {
             this.id = id;
+            this.alfaId = alfaId;
         }
 
         public String getId(){
             return this.id;
+        }
+
+        public int getAlfaId() {
+            return this.alfaId;
         }
     }
 
@@ -67,6 +74,7 @@ public abstract class SiteLoader {
         if(error){
             throw new RuntimeException("Не получилось загрузить курсы валют");
         }
+        //System.out.println(content.toString());
         return handle(content.toString(), currencyName);
     }
 

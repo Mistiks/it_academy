@@ -11,13 +11,14 @@ public class Test {
         String filePath;
         Scanner scanner = new Scanner(System.in);
         SiteLoader loaderNBRB = new NBRBLoader();
+        SiteLoader loaderAlfa = new AlfaLoader();
 
         // Имя и расширение хранятся в классе, так что путь с клавиатуры должен заканчиваться символом "\"
-        System.out.println("Введите путь к файлу. При неверном или пустом вводе файл будет создан в папке по умолчанию");
+        System.out.println("Введите путь к файлам. При неверном или пустом вводе файл будет создан в папке по умолчанию");
         filePath = scanner.nextLine();
 
-        filePath = createFile(loaderNBRB, filePath);
         printRates(loaderNBRB, filePath);
+        printRates(loaderAlfa, filePath);
     }
 
     /**
@@ -39,7 +40,7 @@ public class Test {
         builder.append("1 EUR = ").append(currencyEUR).append(" BYN   ").append("100 RUB = ").append(currencyRUB)
                 .append(" BYN   ").append("1 USD = ").append(currencyUSD).append(" BYN   ").append("\n");
 
-        File file = new File(path);
+        File file = new File(createFile(loader, path));
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write(builder.toString());
         } catch (IOException e) {
