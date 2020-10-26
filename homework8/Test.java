@@ -4,6 +4,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class Test {
@@ -17,8 +21,8 @@ public class Test {
         System.out.println("Введите путь к файлам. При неверном или пустом вводе файл будет создан в папке по умолчанию");
         filePath = scanner.nextLine();
 
-        printRates(loaderNBRB, filePath);
-        printRates(loaderAlfa, filePath);
+        //printRates(loaderNBRB, filePath, args, loaderNBRB.calendar);
+        printRates(loaderAlfa, filePath, args, loaderAlfa.calendar);
     }
 
     /**
@@ -26,21 +30,30 @@ public class Test {
      * @param loader - экземпляр загрузчика сайтов
      * @param path - путь к файлу для записи
      */
-    public static void printRates(SiteLoader loader, String path) {
-        double currencyEUR = loader.load(SiteLoader.Currency.EUR);
-        double currencyRUB = loader.load(SiteLoader.Currency.RUB);
-        double currencyUSD = loader.load(SiteLoader.Currency.USD);
+    public static void printRates(SiteLoader loader, String path, String[] date, Calendar calendar) {
+        String currencyEUR = loader.load(SiteLoader.Currency.EUR);
+        String currencyRUB = loader.load(SiteLoader.Currency.RUB);
+        String currencyUSD = loader.load(SiteLoader.Currency.USD);
         StringBuilder builder = new StringBuilder();
 
-        System.out.println("1 EUR = " + currencyEUR + " BYN");
-        System.out.println("100 RUB = " + currencyRUB + " BYN");
-        System.out.println("1 USD = " + currencyUSD + " BYN");
+        System.out.print(currencyEUR);
+        System.out.print(currencyRUB);
+        System.out.print(currencyUSD);
 
         // создание строки для печати в файл
-        builder.append("1 EUR = ").append(currencyEUR).append(" BYN   ").append("100 RUB = ").append(currencyRUB)
-                .append(" BYN   ").append("1 USD = ").append(currencyUSD).append(" BYN   ").append("\n");
+        builder.append(currencyEUR).append(currencyRUB).append(currencyUSD);
 
-        File file = new File(createFile(loader, path));
+        if (date.length == 1 && isDateValid(date[0], loader)) {
+            currencyEUR = loader.loadDate(SiteLoader.Currency.EUR, loader.calendar);
+            currencyRUB = loader.loadDate(SiteLoader.Currency.RUB, loader.calendar);
+            currencyUSD = loader.loadDate(SiteLoader.Currency.USD, loader.calendar);
+            System.out.print(currencyEUR);
+            System.out.print(currencyRUB);
+            System.out.print(currencyUSD);
+            builder.append(currencyEUR).append(currencyRUB).append(currencyUSD);
+        }
+
+        File file = new File(loader.createFile(loader, path));
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write(builder.toString());
         } catch (IOException e) {
@@ -49,33 +62,30 @@ public class Test {
     }
 
     /**
-     * Метод для создания файла, где хранятся курсы валют
-     * @param loader - экземпляр загрузчика сайтов
-     * @param path - путь, введенный с клавиатуры
-     * @return путь к файлу
+     * Метод для проверки валидности даты, указанной через аргумент к командной строке и записи её в класс
+     * @param testDate - дата для проверки
+     * @return является ли дата валидной для дальнейшней работы
      */
-    public static String createFile(SiteLoader loader, String path) {
-        File f = new File(path + loader.getFileName());
-
-        try { // попытка создания файла, используя указанный пользователем путь
-            if (f.createNewFile()) {
-                System.out.println("Файл создан");
-            } else {
-                System.out.println("Файл уже существует");
-            }
-        } catch (IOException e) { // путь неверный, создаём файл рядом с программой
-            System.out.println(e.getMessage());
-            f = new File(loader.getFileName());
-            try {
-                if (f.createNewFile()) {
-                    System.out.println("Файл создан в директории по умолчанию");
-                } else {
-                    System.out.println("Файл уже существует в директории по умолчанию");
-                }
-            } catch (IOException error) {
-                System.out.println(error.getMessage());
-            }
+    public static boolean isDateValid(String testDate, SiteLoader loader) { ;
+        DateTimeFormatter f = DateTimeFormatter.ofPattern ("yyyy-MM-dd");
+        try {
+            LocalDate date = LocalDate.parse(testDate,f);
+            loader.setCurrentCalendar(localDateToCalendar(date));
+        } catch (DateTimeParseException e) {
+            return false;
         }
-        return f.getPath();
+        return true;
+    }
+
+    /**
+     * Метод для преобразования LocalDate в Calendar
+     * @param localDate - дата для преобразования
+     * @return календарь
+     */
+    public static Calendar localDateToCalendar(LocalDate localDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(localDate.getYear(), localDate.getMonthValue()-1, localDate.getDayOfMonth());
+        return calendar;
     }
 }

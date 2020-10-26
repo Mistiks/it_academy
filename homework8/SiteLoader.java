@@ -1,9 +1,13 @@
 package homeworks.homework8;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 /**
  * Реализация загрузчика сайтов
@@ -11,17 +15,19 @@ import java.net.URL;
 public abstract class SiteLoader {
 
     public enum Currency{
-        USD("145", 840),
-        EUR("292", 978),
-        RUB("298", 643);
+        USD("145", 840, 1),
+        EUR("292", 978, 1),
+        RUB("298", 643, 100);
         //BYN("933", 933);
 
         private final String id;
         private final int alfaId;
+        private final int ratio;
 
-        Currency(String id, int alfaId) {
+        Currency(String id, int alfaId, int ratio) {
             this.id = id;
             this.alfaId = alfaId;
+            this.ratio = ratio;
         }
 
         public String getId(){
@@ -31,6 +37,34 @@ public abstract class SiteLoader {
         public int getAlfaId() {
             return this.alfaId;
         }
+
+        public int getRatio() {
+            return this.ratio;
+        }
+    }
+
+    public Calendar calendar;
+
+    public void setCurrentCalendar(Calendar calendar) {
+        this.calendar = calendar;
+    }
+
+    // Этот метод создан при поддержке API Альфа-банка, которое не принимает 6 как месяц, а требует обязательно 06
+    public String getCalendarMonth() {
+        if (calendar.get(Calendar.MONTH) < 10) {
+            return "0" + calendar.get(Calendar.MONTH);
+        } else {
+            return "" + calendar.get(Calendar.MONTH);
+        }
+    }
+
+    //Этот метод создан при поддержке API Альфа-банка, которое не принимает 6 как день, а требует обязательно 06
+    public String getCalendarDay() {
+        if (calendar.get(Calendar.DAY_OF_MONTH) < 10) {
+            return "0" + calendar.get(Calendar.DAY_OF_MONTH);
+        } else {
+            return "" + calendar.get(Calendar.DAY_OF_MONTH);
+        }
     }
 
     /**
@@ -39,7 +73,7 @@ public abstract class SiteLoader {
      * @param currencyName валюта которую мы ищем
      * @return курс который мы нашли
      */
-    protected final double load(String urlToSite, SiteLoader.Currency currencyName){
+    protected final String load(String urlToSite, SiteLoader.Currency currencyName){
 
         StringBuilder content;
         boolean error;
@@ -74,11 +108,41 @@ public abstract class SiteLoader {
         if(error){
             throw new RuntimeException("Не получилось загрузить курсы валют");
         }
-        //System.out.println(content.toString());
         return handle(content.toString(), currencyName);
     }
 
-    public abstract double load(SiteLoader.Currency currencyName);
+    /**
+     * Метод для создания файла, где хранятся курсы валют
+     * @param loader - экземпляр загрузчика сайтов
+     * @param path - путь, введенный с клавиатуры
+     * @return путь к файлу
+     */
+    public String createFile(SiteLoader loader, String path) {
+        File f = new File(path + loader.getFileName());
+
+        try { // попытка создания файла, используя указанный пользователем путь
+            if (f.createNewFile()) {
+                System.out.println("Файл создан");
+            } else {
+                System.out.println("Файл уже существует");
+            }
+        } catch (IOException e) { // путь неверный, создаём файл рядом с программой
+            System.out.println(e.getMessage());
+            f = new File(loader.getFileName());
+            try {
+                if (f.createNewFile()) {
+                    System.out.println("Файл создан в директории по умолчанию");
+                } else {
+                    System.out.println("Файл уже существует в директории по умолчанию");
+                }
+            } catch (IOException error) {
+                System.out.println(error.getMessage());
+            }
+        }
+        return f.getPath();
+    }
+
+    public abstract String load(SiteLoader.Currency currencyName);
 
     /**
      * Метод который будет дёрнут после успешной загрузки сайта
@@ -86,7 +150,9 @@ public abstract class SiteLoader {
      * @param currencyName валюта которую мы ищем
      * @return курс который мы нашли
      */
-    protected abstract double handle(String content, SiteLoader.Currency currencyName);
+    protected abstract String handle(String content, SiteLoader.Currency currencyName);
 
     public abstract String getFileName();
+
+    public abstract String loadDate(SiteLoader.Currency currencyName, Calendar calendar);
 }

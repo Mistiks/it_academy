@@ -1,5 +1,7 @@
 package homeworks.homework8;
 
+import java.util.Calendar;
+
 /**
  * Загрузчик курса с сайта Нац. Банка
  */
@@ -17,8 +19,15 @@ public class NBRBLoader extends SiteLoader{
      * @return курс который мы нашли
      */
     @Override
-    public double load(SiteLoader.Currency currencyName) {
+    public String load(SiteLoader.Currency currencyName) {
         return load("https://www.nbrb.by/api/exrates/rates/" + currencyName.getId(), currencyName);
+    }
+
+    @Override
+    public String loadDate(SiteLoader.Currency currencyName, Calendar calendar) {
+        return load("https://www.nbrb.by/api/exrates/rates/" + currencyName.getId() + "?ondate="
+                + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH)
+                + "-" + calendar.get(Calendar.DAY_OF_MONTH), currencyName);
     }
 
     /**
@@ -28,9 +37,11 @@ public class NBRBLoader extends SiteLoader{
      * @return курс который мы нашли
      */
     @Override
-    protected double handle(String content, SiteLoader.Currency currencyName) {
+    protected String handle(String content, SiteLoader.Currency currencyName) {
         int index = content.indexOf("Cur_OfficialRate");
+        int dateIndex = content.indexOf("Date");
         index = content.indexOf(":", index);
-        return Double.parseDouble(content.substring(index + 1, index + 6));
+        return "Date: " + content.substring(dateIndex + 7, dateIndex + 17) + " " + currencyName.getRatio()
+                + " " + currencyName + " = " + content.substring(index + 1, index + 6) + " BYN" + "\n";
     }
 }
