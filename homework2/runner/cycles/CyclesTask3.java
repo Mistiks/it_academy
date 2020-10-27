@@ -1,4 +1,4 @@
-package homeworks.homework2;
+package homeworks.homework2.runner.cycles;
 
 import java.util.Scanner;
 

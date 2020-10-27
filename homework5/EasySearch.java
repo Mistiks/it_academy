@@ -16,19 +16,15 @@ public class EasySearch implements ISearchEngine {
                 amount++;
                 break;
             } else if (index == 0) {  // если искомое слово - начало строки, и строка больше слова
-                if (Character.isLetter(text.charAt(index + word.length()))) { // если искомое слово - часть другого слова
-                    index++; // продолжаем поиск без увеличения счетчика
-                } else {
+                if (!Character.isLetter(text.charAt(index + word.length()))) { // если искомое слово - часть другого слова
                     amount++;
-                    index++;
                 }
+                index++; // продолжаем поиск без увеличения счетчика
             } else if (index + word.length() == text.length()) { // искомое слово - конец строки
-                if (Character.isLetter(text.charAt(index - 1))) {
-                    break;
-                } else {
+                if (!Character.isLetter(text.charAt(index - 1))) {
                     amount++;
-                    break;
                 }
+                break;
             } else if (Character.isLetter(text.charAt(index + word.length())) ||
                     Character.isLetter(text.charAt(index - 1))) {
                 index++;

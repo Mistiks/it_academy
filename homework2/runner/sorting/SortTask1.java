@@ -1,4 +1,7 @@
-package homeworks.homework2;
+package homeworks.homework2.runner.sorting;
+
+import homeworks.homework2.service.comparator.IntegerComparator;
+import homeworks.homework2.utils.ArrayConverter;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -15,23 +18,19 @@ public class SortTask1 {
         boolean inputFlag = false;
 
         System.out.println("Первый тестовый массив до сортировки: " + Arrays.toString(testArray1));
-        bubbleSort(testArray1);
-        System.out.println("Первый тестовый массив после сортировки пузырьком: " + Arrays.toString(testArray1));
+        System.out.println("Первый тестовый массив после сортировки пузырьком: " + Arrays.toString(bubbleSort(testArray1)));
         shakerSort(testArray1);
         System.out.println("Первый тестовый массив после шейкерной сортировки: " + Arrays.toString(testArray1));
         System.out.println("Второй тестовый массив до сортировки: " + Arrays.toString(testArray2));
-        bubbleSort(testArray2);
-        System.out.println("Второй тестовый массив после сортировки пузырьком: " + Arrays.toString(testArray2));
+        System.out.println("Второй тестовый массив после сортировки пузырьком: " + Arrays.toString(bubbleSort(testArray2)));
         shakerSort(testArray2);
         System.out.println("Второй тестовый массив после шейкерной сортировки: " + Arrays.toString(testArray2));
         System.out.println("Третий тестовый массив до сортировки: " + Arrays.toString(testArray3));
-        bubbleSort(testArray3);
-        System.out.println("Третий тестовый массив после сортировки пузырьком: " + Arrays.toString(testArray3));
+        System.out.println("Третий тестовый массив после сортировки пузырьком: " + Arrays.toString(bubbleSort(testArray3)));
         shakerSort(testArray3);
         System.out.println("Третий тестовый массив после шейкерной сортировки: " + Arrays.toString(testArray3));
         System.out.println("Четвертый тестовый массив до сортировки: " + Arrays.toString(testArray4));
-        bubbleSort(testArray4);
-        System.out.println("Четвертый тестовый массив после сортировки пузырьком: " + Arrays.toString(testArray4));
+        System.out.println("Четвертый тестовый массив после сортировки пузырьком: " + Arrays.toString(bubbleSort(testArray4)));
         shakerSort(testArray4);
         System.out.println("Четвертый тестовый массив после шейкерной сортировки: " + Arrays.toString(testArray4));
 
@@ -43,8 +42,7 @@ public class SortTask1 {
         }
 
         System.out.println("Рандомный массив до сортировки: " + Arrays.toString(randomArray));
-        bubbleSort(randomArray);
-        System.out.println("Рандомный массив после сортировки пузырьком: " + Arrays.toString(randomArray));
+        System.out.println("Рандомный массив после сортировки пузырьком: " + Arrays.toString(bubbleSort(randomArray)));
         shakerSort(randomArray);
         System.out.println("Рандомный массив после шейкерной сортировки: " + Arrays.toString(randomArray));
 
@@ -82,32 +80,23 @@ public class SortTask1 {
         }
 
         System.out.println("Массив, введенный с консоли, до сортировки: " + Arrays.toString(array));
-        bubbleSort(array);
-        System.out.println("Массив, введенный с консоли, после сортировки пузырьком: " + Arrays.toString(array));
+        System.out.println("Массив, введенный с консоли, после сортировки пузырьком: " + Arrays.toString(bubbleSort(array)));
         shakerSort(array);
         System.out.println("Массив, введенный с консоли, после шейкерной сортировки: " + Arrays.toString(array));
     }
 
-    public static void bubbleSort(int[] inputArray) {
-        int temp = 0;
-        boolean isSorted = false;
+    public static int[] bubbleSort(int[] inputArray) {
+        Integer[] array;
+        ArrayConverter converter = new ArrayConverter();
+        IntegerComparator comparator = new IntegerComparator();
 
-        while(!isSorted) {
-            isSorted = true;
-
-            for (int i = 0; i < inputArray.length - 1; i++) {
-                if (inputArray[i] > inputArray[i + 1]) {
-                    temp = inputArray[i];
-                    inputArray[i] = inputArray[i + 1];
-                    inputArray[i + 1] = temp;
-                    isSorted = false;
-                }
-            }
-        }
+        array = converter.intToInteger(inputArray);
+        bubbleSort(array, comparator);
+        return converter.integerToInt(array);
     }
 
     public static void shakerSort(int[] inputArray) {
-        int temp = 0;
+        int temp;
         int leftBorder = 0;
         int rightBorder = inputArray.length - 1;
         boolean isSorted = false;

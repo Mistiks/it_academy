@@ -1,4 +1,4 @@
-package homeworks.homework2;
+package homeworks.homework2.runner.cycles;
 
 public class CyclesTask1 {
     public static void main(String[] args) {

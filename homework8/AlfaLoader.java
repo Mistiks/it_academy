@@ -68,19 +68,15 @@ public class AlfaLoader extends SiteLoader {
         Matcher dateMatcher = datePattern.matcher(content);
 
         // Единообразие ответов от сервера Альфа-банка для слабых
-        if (!dateMatcher.find()) {
-            datePattern1 = Pattern.compile("[0-9]{2}.[0-9]{2}.[0-9].{4}");
-            dateMatcher1 = datePattern1.matcher(content);
-            if ((!dateMatcher1.find())) {
+        if (!dateMatcher.find() && !dateMatcher1.find()) {
                 return "Нет даты ";
-            }
         }
 
         if (matcher.find() && dateMatcher.find()) { // вывод сегодняшних курсов
             return "Date: " + content.substring(dateMatcher.start(), dateMatcher.end()) + " "
                     + currencyName.getRatio() + " " + currencyName + " = "
                     + searchString.substring(matcher.start(), matcher.start() + 5) + " BYN\n";
-        } else if (!matcher.find()) {
+        } else if (!matcher.find()) { // вывод архивного курса
             return "Date: " + content.substring(dateMatcher1.start(), dateMatcher1.start() + 2) + "-"
                     + content.substring(dateMatcher1.start() + 3, dateMatcher1.start() + 5) + "-"
                     + content.substring(dateMatcher1.start() + 6, dateMatcher1.end() - 1) + " "

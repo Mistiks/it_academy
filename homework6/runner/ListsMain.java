@@ -1,4 +1,9 @@
-package homeworks.homework6;
+package homeworks.homework6.runner;
+
+import homeworks.homework6.entity.Person;
+import homeworks.homework6.utils.PersonAndAnimalOperator;
+import homeworks.homework6.service.comparator.PersonComparator;
+import homeworks.homework6.utils.TimeStorage;
 
 import java.util.*;
 
@@ -7,33 +12,33 @@ public class ListsMain {
     public static void main(String[] args) {
         PersonAndAnimalOperator operator = new PersonAndAnimalOperator();
         PersonComparator personComparator = new PersonComparator();
+        TimeStorage storage = new TimeStorage();
         List<Person> linkedPerson = new LinkedList<>();
         List<Person> arrayPerson = new ArrayList<>();
         Set<Person> hashPerson = new HashSet<>();
         Set<Person> treePerson = new TreeSet<>(personComparator);
         long startTimer;
         long endTimer;
-        List<Long> timeResults = new ArrayList<>();
 
         startTimer = System.currentTimeMillis();
         Collections.addAll(linkedPerson, operator.createPersons(1000000));
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setAddLinkedList(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
         Collections.addAll(arrayPerson, operator.createPersons(1000000));
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setAddArrayList(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
         Collections.addAll(hashPerson, operator.createPersons(1000000));
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setAddHashSet(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
         Collections.addAll(treePerson, operator.createPersons(1000000));
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setAddTreeSet(endTimer - startTimer);
 
         linkedPerson.sort(personComparator);
         arrayPerson.sort(personComparator);
@@ -46,7 +51,7 @@ public class ListsMain {
             System.out.println(iterator1.next().getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorLinkedList(endTimer - startTimer);
 
         Iterator<Person> iterator2 = arrayPerson.iterator();
         startTimer = System.currentTimeMillis();
@@ -54,7 +59,7 @@ public class ListsMain {
             System.out.println(iterator2.next().getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorArrayList(endTimer - startTimer);
 
         Iterator<Person> iterator3 = hashPerson.iterator();
         startTimer = System.currentTimeMillis();
@@ -62,7 +67,7 @@ public class ListsMain {
             System.out.println(iterator3.next().getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorHashSet(endTimer - startTimer);
 
         Iterator<Person> iterator4 = treePerson.iterator();
         startTimer = System.currentTimeMillis();
@@ -70,21 +75,21 @@ public class ListsMain {
             System.out.println(iterator4.next().getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorTreeSet(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
         for (int i = 0; i < linkedPerson.size(); i++) {
             System.out.println(linkedPerson.get(i).getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorForLinkedList(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
         for (int i = 0; i < arrayPerson.size(); i++) {
             System.out.println(arrayPerson.get(i).getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorForArrayList(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
         List<Person> hashListPerson = new ArrayList<>(hashPerson);
@@ -92,7 +97,7 @@ public class ListsMain {
             System.out.println(hashListPerson.get(i).getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorForHashSet(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
         List<Person> treeListPerson = new ArrayList<>(treePerson);
@@ -100,7 +105,7 @@ public class ListsMain {
             System.out.println(treeListPerson.get(i).getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorForTreeSet(endTimer - startTimer);
 
         Iterator<Person> iterator5 = linkedPerson.iterator();
         startTimer = System.currentTimeMillis();
@@ -109,7 +114,7 @@ public class ListsMain {
             iterator5.remove();
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorDeleteLinkedList(endTimer - startTimer);
 
         Iterator<Person> iterator6 = arrayPerson.iterator();
         startTimer = System.currentTimeMillis();
@@ -118,7 +123,7 @@ public class ListsMain {
             iterator6.remove();
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorDeleteArrayList(endTimer - startTimer);
 
         Iterator<Person> iterator7 = hashPerson.iterator();
         startTimer = System.currentTimeMillis();
@@ -127,7 +132,7 @@ public class ListsMain {
             iterator7.remove();
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorDeleteHashSet(endTimer - startTimer);
 
         Iterator<Person> iterator8 = treePerson.iterator();
         startTimer = System.currentTimeMillis();
@@ -136,23 +141,23 @@ public class ListsMain {
             iterator8.remove();
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorDeleteTreeSet(endTimer - startTimer);
 
-        System.out.println("Операция: заполнение LinkedList. Заняла " + timeResults.get(0) + " мс");
-        System.out.println("Операция: заполнение ArrayList. Заняла " + timeResults.get(1) + " мс");
-        System.out.println("Операция: заполнение HashSet. Заняла " + timeResults.get(2) + " мс");
-        System.out.println("Операция: заполнение TreeSet. Заняла " + timeResults.get(3) + " мс");
-        System.out.println("Операция: итерирование LinkedList (iterator). Заняла " + timeResults.get(4) + " мс");
-        System.out.println("Операция: итерирование ArrayList (iterator). Заняла " + timeResults.get(5) + " мс");
-        System.out.println("Операция: итерирование HashSet (iterator). Заняла " + timeResults.get(6) + " мс");
-        System.out.println("Операция: итерирование TreeSet (iterator). Заняла " + timeResults.get(7) + " мс");
-        System.out.println("Операция: итерирование LinkedList (for). Заняла " + timeResults.get(8) + " мс");
-        System.out.println("Операция: итерирование ArrayList (for). Заняла " + timeResults.get(9) + " мс");
-        System.out.println("Операция: итерирование HashSet (for). Заняла " + timeResults.get(10) + " мс");
-        System.out.println("Операция: итерирование TreeSet (for). Заняла " + timeResults.get(11) + " мс");
-        System.out.println("Операция: удаление LinkedList (iterator). Заняла " + timeResults.get(12) + " мс");
-        System.out.println("Операция: удаление ArrayList (iterator). Заняла " + timeResults.get(13) + " мс");
-        System.out.println("Операция: удаление HashSet (iterator). Заняла " + timeResults.get(14) + " мс");
-        System.out.println("Операция: удаление TreeSet (iterator). Заняла " + timeResults.get(15) + " мс");
+        System.out.println("Операция: заполнение LinkedList. Заняла " + storage.getAddLinkedList() + " мс");
+        System.out.println("Операция: заполнение ArrayList. Заняла " + storage.getAddArrayList() + " мс");
+        System.out.println("Операция: заполнение HashSet. Заняла " + storage.getAddHashSet() + " мс");
+        System.out.println("Операция: заполнение TreeSet. Заняла " + storage.getAddTreeSet() + " мс");
+        System.out.println("Операция: итерирование LinkedList (iterator). Заняла " + storage.getIteratorLinkedList() + " мс");
+        System.out.println("Операция: итерирование ArrayList (iterator). Заняла " + storage.getIteratorArrayList() + " мс");
+        System.out.println("Операция: итерирование HashSet (iterator). Заняла " + storage.getIteratorHashSet() + " мс");
+        System.out.println("Операция: итерирование TreeSet (iterator). Заняла " + storage.getIteratorTreeSet() + " мс");
+        System.out.println("Операция: итерирование LinkedList (for). Заняла " + storage.getIteratorForLinkedList() + " мс");
+        System.out.println("Операция: итерирование ArrayList (for). Заняла " + storage.getIteratorForArrayList() + " мс");
+        System.out.println("Операция: итерирование HashSet (for). Заняла " + storage.getIteratorForHashSet() + " мс");
+        System.out.println("Операция: итерирование TreeSet (for). Заняла " + storage.getIteratorForTreeSet() + " мс");
+        System.out.println("Операция: удаление LinkedList (iterator). Заняла " + storage.getIteratorDeleteLinkedList() + " мс");
+        System.out.println("Операция: удаление ArrayList (iterator). Заняла " + storage.getIteratorDeleteArrayList() + " мс");
+        System.out.println("Операция: удаление HashSet (iterator). Заняла " + storage.getIteratorDeleteHashSet() + " мс");
+        System.out.println("Операция: удаление TreeSet (iterator). Заняла " + storage.getIteratorDeleteTreeSet() + " мс");
     }
 }

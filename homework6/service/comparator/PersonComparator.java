@@ -1,4 +1,6 @@
-package homeworks.homework6;
+package homeworks.homework6.service.comparator;
+
+import homeworks.homework6.entity.Person;
 
 import java.util.Comparator;
 

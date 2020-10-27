@@ -1,4 +1,4 @@
-package homeworks.homework6;
+package homeworks.homework6.entity;
 
 public class Animal {
     private int age;

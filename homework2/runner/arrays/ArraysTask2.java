@@ -1,11 +1,10 @@
-package homeworks.homework2;
+package homeworks.homework2.runner.arrays;
 
 import java.util.Scanner;
 
-public class ArraysTask1 {
+public class ArraysTask2 {
     public static void main(String[] args) {
         int numberOfElements = 0;
-        int counter = 0;
         boolean inputFlag = false;
         Scanner input = new Scanner(System.in);
 
@@ -42,34 +41,12 @@ public class ArraysTask1 {
             } while (!inputFlag);
         }
 
-        System.out.print("Вывод элементов массива с помощью do...while: ");
+        System.out.print("Вывод каждого второго элемента массива: ");
 
-        do {
-            System.out.print(array[counter] + " ");
-            counter++;
-        } while(counter < array.length);
-
-        counter = 0;
-        System.out.println();
-        System.out.print("Вывод элементов массива с помощью while: ");
-
-        while (counter < array.length) {
-            System.out.print(array[counter] + " ");
-            counter++;
-        }
-
-        System.out.println();
-        System.out.print("Вывод элементов массива с помощью for: ");
-
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
-        }
-
-        System.out.println();
-        System.out.print("Вывод элементов массива с помощью foreach: ");
-
-        for (int i: array) {
-            System.out.print(i + " ");
+        for (int i = 0; i < numberOfElements; i++) {
+            if ((i + 1) % 2 == 0) {
+                System.out.print(array[i] + " ");
+            }
         }
     }
 }

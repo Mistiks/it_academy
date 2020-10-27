@@ -1,4 +1,4 @@
-package homeworks.homework6;
+package homeworks.homework6.entity;
 
 public class Person {
     private String nick;

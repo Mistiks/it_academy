@@ -1,6 +1,9 @@
-package homeworks.homework6;
+package homeworks.homework6.utils;
 
-import homeworks.homework2.SortTask1;
+import homeworks.homework2.runner.sorting.SortTask1;
+import homeworks.homework6.entity.Animal;
+import homeworks.homework6.entity.Person;
+
 import java.util.*;
 
 public class PersonAndAnimalOperator {
@@ -8,6 +11,7 @@ public class PersonAndAnimalOperator {
     private final char[] upperCaseLetters = ("QWERTYUIOPASDFGHJKLZXCVBNM").toCharArray();
     private final char[] lowerCaseLetters = ("qwertyuiopasdfghjklzxcvbnm").toCharArray();
     private final Random random = new Random();
+    TimeStorage storage = new TimeStorage();
 
     public Person[] createPersons(int amount) {
         Person[] result = new Person[amount];
@@ -60,7 +64,6 @@ public class PersonAndAnimalOperator {
 
     public void personListOperations (Collection list, Comparator<Person> comparator) {
         Person[] array = (Person[]) list.toArray(new Person[0]);
-        List<Long> timeResults = new ArrayList<>();
         long startTimer;
         long endTimer;
 
@@ -74,14 +77,14 @@ public class PersonAndAnimalOperator {
             System.out.println(iterator1.next().getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setAddCollection(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i].getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorForCollection(endTimer - startTimer);
 
         Iterator<Person> iterator2 = list.iterator();
         startTimer = System.currentTimeMillis();
@@ -90,16 +93,15 @@ public class PersonAndAnimalOperator {
             iterator2.remove();
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorDeleteCollection(endTimer - startTimer);
 
-        System.out.println("Операция: итерирование коллекции (iterator). Заняла " + timeResults.get(0) + " мс");
-        System.out.println("Операция: итерирование массива (for). Заняла " + timeResults.get(1) + " мс");
-        System.out.println("Операция: удаление коллекции (iterator). Заняла " + timeResults.get(2) + " мс");
+        System.out.println("Операция: итерирование коллекции (iterator). Заняла " + storage.getAddCollection() + " мс");
+        System.out.println("Операция: итерирование массива (for). Заняла " + storage.getIteratorForCollection() + " мс");
+        System.out.println("Операция: удаление коллекции (iterator). Заняла " + storage.getIteratorDeleteCollection() + " мс");
     }
 
     public void animalListOperations (Collection list, Comparator<Animal> comparator) {
         Animal[] array = (Animal[]) list.toArray(new Animal[0]);
-        List<Long> timeResults = new ArrayList<>();
         long startTimer;
         long endTimer;
 
@@ -113,14 +115,14 @@ public class PersonAndAnimalOperator {
             System.out.println(iterator1.next().getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setAddCollection(endTimer - startTimer);
 
         startTimer = System.currentTimeMillis();
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i].getInfo());
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorForCollection(endTimer - startTimer);
 
         Iterator<Animal> iterator2 = list.iterator();
         startTimer = System.currentTimeMillis();
@@ -129,10 +131,10 @@ public class PersonAndAnimalOperator {
             iterator2.remove();
         }
         endTimer = System.currentTimeMillis();
-        timeResults.add(endTimer - startTimer);
+        storage.setIteratorDeleteCollection(endTimer - startTimer);
 
-        System.out.println("Операция: итерирование коллекции (iterator). Заняла " + timeResults.get(0) + " мс");
-        System.out.println("Операция: итерирование массива (for). Заняла " + timeResults.get(1) + " мс");
-        System.out.println("Операция: удаление коллекции (iterator). Заняла " + timeResults.get(2) + " мс");
+        System.out.println("Операция: итерирование коллекции (iterator). Заняла " + storage.getAddCollection() + " мс");
+        System.out.println("Операция: итерирование массива (for). Заняла " + storage.getIteratorForCollection() + " мс");
+        System.out.println("Операция: удаление коллекции (iterator). Заняла " + storage.getIteratorDeleteCollection() + " мс");
     }
 }
