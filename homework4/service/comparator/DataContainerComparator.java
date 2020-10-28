@@ -1,4 +1,4 @@
-package homeworks.homework4;
+package homeworks.homework4.service.comparator;
 
 import java.util.Comparator;
 

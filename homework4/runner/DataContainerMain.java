@@ -1,4 +1,8 @@
-package homeworks.homework4;
+package homeworks.homework4.runner;
+
+import homeworks.homework4.entity.DataContainer;
+import homeworks.homework4.service.comparator.DataContainerComparator;
+import homeworks.homework4.service.comparator.DoubleContainerComparator;
 
 public class DataContainerMain {
     public static void main(String[] args) {

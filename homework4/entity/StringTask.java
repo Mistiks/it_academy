@@ -1,4 +1,4 @@
-package homeworks.homework4;
+package homeworks.homework4.entity;
 
 public class StringTask {
     private final String[] digits = new String[]{ "один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ",
@@ -23,36 +23,35 @@ public class StringTask {
     public String toString(int number) {
 
         if (number < 0) {
-            return "Минус " + toString(-number).toLowerCase();
+            return "Минус " + toString(-number);
         }
 
         if (number < 1000 && !secondType) {
-            return prescriptionToThousand(number);
+            return firstUpperCase(prescriptionToThousand(number));
         } else if ( number < 1000) {
-            return prescriptionToThousandSecond(number);
+            return firstUpperCase(prescriptionToThousandSecond(number));
         } else if (number < 10000) {
-            return prescriptionToTenThousand(number);
+            return firstUpperCase(prescriptionToTenThousand(number));
         } else if (number < 20000) {
-            return prescriptionToTwentyThousand(number);
+            return firstUpperCase(prescriptionToTwentyThousand(number));
         } else if (number < 100000) {
-            return prescriptionToHundredThousand(number);
+            return firstUpperCase(prescriptionToHundredThousand(number));
         } else if (number < 1000000) {
-            return prescriptionToOneMillion(number);
+            return firstUpperCase(prescriptionToOneMillion(number));
         } else if (number < 10000000) {
-            return prescriptionToTenMillion(number);
+            return firstUpperCase(prescriptionToTenMillion(number));
         } else if ( number < 19999999) {
-            return prescriptionToTwentyMillions(number);
+            return firstUpperCase(prescriptionToTwentyMillions(number));
         } else if (number < 99999999) {
-            return prescriptionToHundredMillions(number);
+            return firstUpperCase(prescriptionToHundredMillions(number));
         } else {
-            return prescriptionToOneBillion(number);
+            return firstUpperCase(prescriptionToOneBillion(number));
         }
 
     }
 
     /**
      * Метод преобразозывает в пропись числа от 0 до 999 включительно
-     * Внимание: метод всегда возвращает пропись, начиная с заглавной буквы
      * @param number - число для преобразования
      * @return String - сумма прописью
      */
@@ -65,38 +64,32 @@ public class StringTask {
         if (number == 0) {
             return "Ноль ";
         } else if (number > 0 && number < 10) {
-            return digits[number - 1].substring(0, 1).toUpperCase() + digits[number - 1].substring(1);
+            return digits[number - 1];
         } else if (number > 9 && number < 20) {
-            return secondDozen[number - 10].substring(0, 1).toUpperCase() + secondDozen[number - 10].substring(1);
+            return secondDozen[number - 10];
         } else if (number > 19 && number < 100) {
             if (number % 10 - 1 >= 0) {
-                return dozens[number / 10 - 1].substring(0, 1).toUpperCase() + dozens[number / 10 - 1].substring(1)
-                        + digits[number % 10 - 1];
+                return dozens[number / 10 - 1] + digits[number % 10 - 1];
             } else {
-                return dozens[number / 10 - 1].substring(0, 1).toUpperCase() + dozens[number / 10 - 1].substring(1);
+                return dozens[number / 10 - 1];
             }
         } else {
             if (number % 100 == 0) {
-                return hundreds[number / 100 - 1].substring(0, 1).toUpperCase() + hundreds[number / 100 - 1].substring(1);
+                return hundreds[number / 100 - 1];
             } else if (number % 10 == 0) {
-                return hundreds[number / 100 - 1].substring(0, 1).toUpperCase() + hundreds[number / 100 - 1].substring(1)
-                        + dozens[(number % 100) / 10 - 1];
+                return hundreds[number / 100 - 1] + dozens[(number % 100) / 10 - 1];
             } else if (number % 100 >= 10 && number % 100 < 20) {
-                return hundreds[number / 100 - 1].substring(0, 1).toUpperCase() + hundreds[number / 100 - 1].substring(1)
-                        + secondDozen[number % 100 - 10];
+                return hundreds[number / 100 - 1] + secondDozen[number % 100 - 10];
             } else if ((number % 100) / 10 - 1 >= 0){
-                return hundreds[number / 100 - 1].substring(0, 1).toUpperCase() + hundreds[number / 100 - 1].substring(1)
-                        + dozens[(number % 100) / 10 - 1] + digits[number % 10 - 1];
+                return hundreds[number / 100 - 1] + dozens[(number % 100) / 10 - 1] + digits[number % 10 - 1];
             } else {
-                return hundreds[number / 100 - 1].substring(0, 1).toUpperCase() + hundreds[number / 100 - 1].substring(1)
-                        + digits[number % 10 - 1];
+                return hundreds[number / 100 - 1] + digits[number % 10 - 1];
             }
         }
     }
 
     /**
      * Метод преобразозывает в пропись числа от 0 до 999 включительно
-     * Внимание: метод всегда возвращает пропись, начиная с заглавной буквы
      * Разница с предыдущим методом в выводе единиц для второго задания
      * @param number - число для преобразования
      * @return String - сумма прописью
@@ -110,38 +103,32 @@ public class StringTask {
         if (number == 0) {
             return "Ноль";
         } else if (number > 0 && number < 10) {
-            return digitsSecondCase[number - 1].substring(0, 1).toUpperCase() + digitsSecondCase[number - 1].substring(1);
+            return digitsSecondCase[number - 1];
         } else if (number > 9 && number < 20) {
-            return secondDozen[number - 10].substring(0, 1).toUpperCase() + secondDozen[number - 10].substring(1);
+            return secondDozen[number - 10];
         } else if (number > 19 && number < 100) {
             if (number % 10 - 1 >= 0) {
-                return dozens[number / 10 - 1].substring(0, 1).toUpperCase() + dozens[number / 10 - 1].substring(1)
-                        + digitsSecondCase[number % 10 - 1];
+                return dozens[number / 10 - 1] + digitsSecondCase[number % 10 - 1];
             } else {
-                return dozens[number / 10 - 1].substring(0, 1).toUpperCase() + dozens[number / 10 - 1].substring(1);
+                return dozens[number / 10 - 1];
             }
         } else {
             if (number % 100 == 0) {
-                return hundreds[number / 100 - 1].substring(0, 1).toUpperCase() + hundreds[number / 100 - 1].substring(1);
+                return hundreds[number / 100 - 1];
             } else if (number % 10 == 0) {
-                return hundreds[number / 100 - 1].substring(0, 1).toUpperCase() + hundreds[number / 100 - 1].substring(1)
-                        + dozens[(number % 100) / 10 - 1];
+                return hundreds[number / 100 - 1] + dozens[(number % 100) / 10 - 1];
             } else if (number % 100 >= 10 && number % 100 < 20) {
-                return hundreds[number / 100 - 1].substring(0, 1).toUpperCase() + hundreds[number / 100 - 1].substring(1)
-                        + secondDozen[number % 100 - 10];
+                return hundreds[number / 100 - 1] + secondDozen[number % 100 - 10];
             } else if ((number % 100) / 10 - 1 >= 0){
-                return hundreds[number / 100 - 1].substring(0, 1).toUpperCase() + hundreds[number / 100 - 1].substring(1)
-                        + dozens[(number % 100) / 10 - 1] + digitsSecondCase[number % 10 - 1];
+                return hundreds[number / 100 - 1] + dozens[(number % 100) / 10 - 1] + digitsSecondCase[number % 10 - 1];
             } else {
-                return hundreds[number / 100 - 1].substring(0, 1).toUpperCase() + hundreds[number / 100 - 1].substring(1)
-                        + digitsSecondCase[number % 10 - 1];
+                return hundreds[number / 100 - 1] + digitsSecondCase[number % 10 - 1];
             }
         }
     }
 
     /**
      * Метод преобразозывает в пропись числа от 1000 до 9999 включительно
-     * Внимание: метод всегда возвращает пропись, начиная с заглавной буквы
      * @param number - число для преобразования
      * @return String - сумма прописью
      */
@@ -158,39 +145,30 @@ public class StringTask {
         }
 
             if (number / 1000 - 1 == 0 && number % 1000 != 0 && !secondType) {
-                return digitsSecondCase[0].substring(0, 1).toUpperCase() + digitsSecondCase[0].substring(1)
-                        + thousandsCases[0] + prescriptionToThousand(number % 1000).toLowerCase();
+                return digitsSecondCase[0] + thousandsCases[0] + prescriptionToThousand(number % 1000);
             } else if (number / 1000 - 1 == 0 && number % 1000 != 0 && secondType) {
-                return digitsSecondCase[0].substring(0, 1).toUpperCase() + digitsSecondCase[0].substring(1)
-                        + thousandsCases[0] + prescriptionToThousandSecond(number % 1000).toLowerCase();
+                return digitsSecondCase[0] + thousandsCases[0] + prescriptionToThousandSecond(number % 1000);
             } else if (number / 1000 - 1 == 0 && number % 1000 == 0) {
-                return digitsSecondCase[0].substring(0, 1).toUpperCase() + digitsSecondCase[0].substring(1)
-                        + thousandsCases[0];
+                return digitsSecondCase[0] + thousandsCases[0];
             } else if (number / 1000 - 1 > 0 && number / 1000 - 1 < 4) {
                 if (number % 1000 == 0) {
-                    return digitsSecondCase[number / 1000 - 1].substring(0, 1).toUpperCase()
-                            + digitsSecondCase[number / 1000 - 1].substring(1) + thousandsCases[1];
+                    return digitsSecondCase[number / 1000 - 1] + thousandsCases[1];
                 } else if (number % 1000 != 0 && !secondType){
-                    return digitsSecondCase[number / 1000 - 1].substring(0, 1).toUpperCase()
-                            + digitsSecondCase[number / 1000 - 1].substring(1) + thousandsCases[1]
-                            + prescriptionToThousand(number % 1000).toLowerCase();
+                    return digitsSecondCase[number / 1000 - 1] + thousandsCases[1]
+                            + prescriptionToThousand(number % 1000);
                 } else {
-                    return digitsSecondCase[number / 1000 - 1].substring(0, 1).toUpperCase()
-                            + digitsSecondCase[number / 1000 - 1].substring(1) + thousandsCases[1]
-                            + prescriptionToThousandSecond(number % 1000).toLowerCase();
+                    return digitsSecondCase[number / 1000 - 1] + thousandsCases[1]
+                            + prescriptionToThousandSecond(number % 1000);
                 }
             } else if (number / 1000 - 1 >= 4) {
                 if (number % 1000 == 0) {
-                    return digitsSecondCase[number / 1000 - 1].substring(0, 1).toUpperCase()
-                            + digitsSecondCase[number / 1000 - 1].substring(1) + thousandsCases[2];
+                    return digitsSecondCase[number / 1000 - 1] + thousandsCases[2];
                 } else if (number % 1000 != 0 && !secondType) {
-                    return digitsSecondCase[number / 1000 - 1].substring(0, 1).toUpperCase()
-                            + digitsSecondCase[number / 1000 - 1].substring(1) + thousandsCases[2]
-                            + prescriptionToThousand(number % 1000).toLowerCase();
+                    return digitsSecondCase[number / 1000 - 1] + thousandsCases[2]
+                            + prescriptionToThousand(number % 1000);
                 } else {
-                    return digitsSecondCase[number / 1000 - 1].substring(0, 1).toUpperCase()
-                            + digitsSecondCase[number / 1000 - 1].substring(1) + thousandsCases[1]
-                            + prescriptionToThousandSecond(number % 1000).toLowerCase();
+                    return digitsSecondCase[number / 1000 - 1] + thousandsCases[1]
+                            + prescriptionToThousandSecond(number % 1000);
                 }
             }
         return "Ошибка в вычиcлениях";
@@ -198,7 +176,6 @@ public class StringTask {
 
     /**
      * Метод преобразозывает в пропись числа от 10000 до 19999 включительно
-     * Внимание: метод всегда возвращает пропись, начиная с заглавной буквы
      * @param number - число для преобразования
      * @return String - сумма прописью
      */
@@ -213,22 +190,17 @@ public class StringTask {
         }
 
         if (number % 1000 == 0) {
-            return secondDozen[number / 1000 - 10].substring(0, 1).toUpperCase()
-                    + secondDozen[number / 1000 - 10].substring(1) + thousandsCases[2];
+            return secondDozen[number / 1000 - 10] + thousandsCases[2];
         } else if (number % 1000 != 0 && !secondType){
-            return secondDozen[number / 1000 - 10].substring(0, 1).toUpperCase()
-                    + secondDozen[number / 1000 - 10].substring(1) + thousandsCases[2]
-                    + prescriptionToThousand(number % 1000).toLowerCase();
+            return secondDozen[number / 1000 - 10] + thousandsCases[2] + prescriptionToThousand(number % 1000);
             } else {
-            return secondDozen[number / 1000 - 10].substring(0, 1).toUpperCase()
-                    + secondDozen[number / 1000 - 10].substring(1) + thousandsCases[2]
-                    + prescriptionToThousandSecond(number % 1000).toLowerCase();
+            return secondDozen[number / 1000 - 10] + thousandsCases[2]
+                    + prescriptionToThousandSecond(number % 1000);
         }
     }
 
     /**
      * Метод преобразозывает в пропись числа от 20000 до 99999 включительно
-     * Внимание: метод всегда возвращает пропись, начиная с заглавной буквы
      * @param number - число для преобразования
      * @return String - сумма прописью
      */
@@ -243,18 +215,14 @@ public class StringTask {
         }
 
         if (number % 10000 == 0) {
-            return dozens[number / 10000 - 1].substring(0, 1).toUpperCase()
-                    + dozens[number / 10000 - 1].substring(1) + thousandsCases[2];
+            return dozens[number / 10000 - 1] + thousandsCases[2];
         } else {
-            return dozens[number / 10000 - 1].substring(0, 1).toUpperCase()
-                    + dozens[number / 10000 - 1].substring(1)
-                    + prescriptionToTenThousand(number - 10000 * (number / 10000)).toLowerCase();
+            return dozens[number / 10000 - 1] + prescriptionToTenThousand(number - 10000 * (number / 10000));
         }
     }
 
     /**
      * Метод преобразозывает в пропись числа от 100000 до 999999 включительно
-     * Внимание: метод всегда возвращает пропись, начиная с заглавной буквы
      * @param number - число для преобразования
      * @return String - сумма прописью
      */
@@ -269,15 +237,12 @@ public class StringTask {
         }
 
         if (number % 100000 == 0) {
-            return hundreds[number / 100000 - 1].substring(0, 1).toUpperCase()
-                    + hundreds[number / 100000 - 1].substring(1) + thousandsCases[2];
-        } else return hundreds[number / 100000 - 1].substring(0, 1).toUpperCase()
-                    + hundreds[number / 100000 - 1].substring(1) + prescriptionToHundredThousand(number % 100000).toLowerCase();
+            return hundreds[number / 100000 - 1] + thousandsCases[2];
+        } else return hundreds[number / 100000 - 1] + prescriptionToHundredThousand(number % 100000);
     }
 
     /**
      * Метод преобразозывает в пропись числа от 1000000 до 9999999 включительно
-     * Внимание: метод всегда возвращает пропись, начиная с заглавной буквы
      * @param number - число для преобразования
      * @return String - сумма прописью
      */
@@ -293,35 +258,28 @@ public class StringTask {
 
         if (number % 1000000 == 0) {
             if (number / 1000000  == 1) {
-                return digits[number / 1000000 - 1].substring(0, 1).toUpperCase()
-                        + digits[number / 1000000 - 1].substring(1) + millionCases[0];
+                return digits[number / 1000000 - 1] + millionCases[0];
             } else if (number / 1000000 >= 2 && number / 1000000 < 5) {
-                return digits[number / 1000000 - 1].substring(0, 1).toUpperCase()
-                        + digits[number / 1000000 - 1].substring(1) + millionCases[1];
+                return digits[number / 1000000 - 1] + millionCases[1];
             } else if (number / 1000000 >= 5){
-                return digits[number / 1000000 - 1].substring(0, 1).toUpperCase()
-                        + digits[number / 1000000 - 1].substring(1) + millionCases[2];
+                return digits[number / 1000000 - 1] + millionCases[2];
             }
         }
 
         if (number / 1000000  == 1 && number % 1000000 != 0) {
-                return digits[number / 1000000 - 1].substring(0, 1).toUpperCase()
-                        + digits[number / 1000000 - 1].substring(1) + millionCases[0]
-                        + prescriptionToOneMillion(number - 1000000 * (number / 1000000)).toLowerCase();
+                return digits[number / 1000000 - 1] + millionCases[0]
+                        + prescriptionToOneMillion(number - 1000000 * (number / 1000000));
             } else if (number / 1000000 >= 2 && number / 1000000 < 5) {
-                return digits[number / 1000000 - 1].substring(0, 1).toUpperCase()
-                        + digits[number / 1000000 - 1].substring(1) + millionCases[1]
-                        + prescriptionToOneMillion(number - 1000000 * (number / 1000000)).toLowerCase();
+                return digits[number / 1000000 - 1] + millionCases[1]
+                        + prescriptionToOneMillion(number - 1000000 * (number / 1000000));
             } else {
-                return digits[number / 1000000 - 1].substring(0, 1).toUpperCase()
-                        + digits[number / 1000000 - 1].substring(1) + millionCases[2]
-                        + prescriptionToOneMillion(number - 1000000 * (number / 1000000)).toLowerCase();
+                return digits[number / 1000000 - 1] + millionCases[2]
+                        + prescriptionToOneMillion(number - 1000000 * (number / 1000000));
             }
     }
 
     /**
      * Метод преобразозывает в пропись числа от 1000000 до 19999999 включительно
-     * Внимание: метод всегда возвращает пропись, начиная с заглавной буквы
      * @param number - число для преобразования
      * @return String - сумма прописью
      */
@@ -336,18 +294,15 @@ public class StringTask {
         }
 
         if (number % 1000000 == 0) {
-            return secondDozen[number / 1000000 - 10].substring(0, 1).toUpperCase()
-                    + secondDozen[number / 1000000 - 10].substring(1) + millionCases[2];
+            return secondDozen[number / 1000000 - 10] + millionCases[2];
         } else {
-            return secondDozen[number / 1000000 - 10].substring(0, 1).toUpperCase()
-                    + secondDozen[number / 1000000 - 10].substring(1) + millionCases[2]
-                    + prescriptionToOneMillion(number - 1000000 * (number / 1000000)).toLowerCase();
+            return secondDozen[number / 1000000 - 10] + millionCases[2]
+                    + prescriptionToOneMillion(number - 1000000 * (number / 1000000));
         }
     }
 
     /**
      * Метод преобразозывает в пропись числа от 2000000 до 99999999 включительно
-     * Внимание: метод всегда возвращает пропись, начиная с заглавной буквы
      * @param number - число для преобразования
      * @return String - сумма прописью
      */
@@ -362,16 +317,13 @@ public class StringTask {
         }
 
         if (number % 10000000 == 0) {
-            return dozens[number / 10000000 - 1].substring(0, 1).toUpperCase()
-                    + dozens[number / 10000000 - 1].substring(1) + millionCases[2];
+            return dozens[number / 10000000 - 1] + millionCases[2];
         } else if (number % 1000000 == 0) {
-            return dozens[number / 10000000 - 1].substring(0, 1).toUpperCase()
-                    + dozens[number / 10000000 - 1].substring(1)
-                    + prescriptionToTenMillion(number - 10000000 * (number / 10000000)).toLowerCase();
+            return dozens[number / 10000000 - 1]
+                    + prescriptionToTenMillion(number - 10000000 * (number / 10000000));
         }  else {
-            return dozens[number / 10000000 - 1].substring(0, 1).toUpperCase()
-                    + dozens[number / 10000000 - 1].substring(1)
-                    + prescriptionToOneMillion(number - 10000000 * (number / 10000000)).toLowerCase();
+            return dozens[number / 10000000 - 1]
+                    + prescriptionToOneMillion(number - 10000000 * (number / 10000000));
         }
     }
 
@@ -388,21 +340,15 @@ public class StringTask {
         }
 
         if (number % 100000000 == 0) {
-            return hundreds[number / 100000000 - 1].substring(0, 1).toUpperCase()
-                    + hundreds[number / 100000000 - 1].substring(1) + millionCases[2];
+            return hundreds[number / 100000000 - 1] + millionCases[2];
         } else if (number % 10000000 == 0) {
-            return hundreds[number / 100000000 - 1].substring(0, 1).toUpperCase()
-                    + hundreds[number / 100000000 - 1].substring(1)
-                    + prescriptionToHundredMillions( number % 100000000).toLowerCase();
+            return hundreds[number / 100000000 - 1] + prescriptionToHundredMillions( number % 100000000);
         }
-        return hundreds[number / 100000000 - 1].substring(0, 1).toUpperCase()
-                + hundreds[number / 100000000 - 1].substring(1)
-                + prescriptionToHundredMillions( number % 100000000).toLowerCase();
+        return hundreds[number / 100000000 - 1] + prescriptionToHundredMillions( number % 100000000);
     }
 
     /**
      * Метод преобразозывает в пропись дробное число
-     * Внимание: метод всегда возвращает пропись, начиная с заглавной буквы
      * @param number - число для преобразования
      * @return String - сумма прописью
      */
@@ -502,5 +448,14 @@ public class StringTask {
         }
 
         return resultString;
+    }
+
+    /**
+     * Метод возвращает строку с начальным прописным символом
+     * @param input - строка, в которой нужно поменять строчную на прописную букву
+     * @return String - преобразованная строка
+     */
+    private String firstUpperCase(String input) {
+        return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
 }

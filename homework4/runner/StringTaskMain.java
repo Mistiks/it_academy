@@ -1,4 +1,6 @@
-package homeworks.homework4;
+package homeworks.homework4.runner;
+
+import homeworks.homework4.entity.StringTask;
 
 import java.util.Scanner;
 

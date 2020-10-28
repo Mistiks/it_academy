@@ -1,4 +1,4 @@
-package homeworks.homework4;
+package homeworks.homework4.entity;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
