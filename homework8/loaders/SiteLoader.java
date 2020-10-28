@@ -1,4 +1,4 @@
-package homeworks.homework8;
+package homeworks.homework8.loaders;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.Calendar;
 
 /**
@@ -43,23 +42,36 @@ public abstract class SiteLoader {
         }
     }
 
-    public Calendar calendar;
+    private Calendar firstDate;
+    private Calendar secondDate;
 
-    public void setCurrentCalendar(Calendar calendar) {
-        this.calendar = calendar;
+    public void setFirstDate(Calendar firstDate) {
+        this.firstDate = firstDate;
+    }
+
+    public void setSecondDate(Calendar secondDate) {
+        this.secondDate = secondDate;
+    }
+
+    public Calendar getFirstDate() {
+        return firstDate;
+    }
+
+    public Calendar getSecondDate() {
+        return secondDate;
     }
 
     // Этот метод создан при поддержке API Альфа-банка, которое не принимает 6 как месяц, а требует обязательно 06
-    public String getCalendarMonth() {
-        if (calendar.get(Calendar.MONTH) < 10) {
-            return "0" + calendar.get(Calendar.MONTH);
+    public String getCalendarMonth(Calendar calendar) {
+        if (calendar.get(Calendar.MONTH) < 9) {
+            return "0" + (calendar.get(Calendar.MONTH) + 1);
         } else {
             return "" + calendar.get(Calendar.MONTH);
         }
     }
 
     //Этот метод создан при поддержке API Альфа-банка, которое не принимает 6 как день, а требует обязательно 06
-    public String getCalendarDay() {
+    public String getCalendarDay(Calendar calendar) {
         if (calendar.get(Calendar.DAY_OF_MONTH) < 10) {
             return "0" + calendar.get(Calendar.DAY_OF_MONTH);
         } else {

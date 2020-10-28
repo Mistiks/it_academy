@@ -1,4 +1,4 @@
-package homeworks.homework8;
+package homeworks.homework8.loaders;
 
 import java.util.Calendar;
 import java.util.regex.Matcher;
@@ -29,13 +29,12 @@ public class AlfaLoader extends SiteLoader {
     @Override
     public String loadDate(SiteLoader.Currency currencyName, Calendar calendar) {
         return load("https://developerhub.alfabank.by:8273/partner/1.0.1/public/nationalRates?currencyCode="
-                + currencyName.getAlfaId() + "&date=" + getCalendarDay()
-                + "." + getCalendarMonth() + "." + calendar.get(Calendar.YEAR), currencyName);
+                + currencyName.getAlfaId() + "&date=" + getCalendarDay(calendar)
+                + "." + getCalendarMonth(calendar) + "." + calendar.get(Calendar.YEAR), currencyName);
     }
 
     /**
      * Обработка результата загрузки с сайта банка
-     *
      * @param content      то что получилось загрузить
      * @param currencyName валюта которую мы ищем
      * @return курс который мы нашли
@@ -44,11 +43,11 @@ public class AlfaLoader extends SiteLoader {
     protected String handle(String content, SiteLoader.Currency currencyName) {
         String searchString;
         Pattern pattern = Pattern.compile("\"sellCode\":" + currencyName.getAlfaId()
-                + ",\"buyRate\":[0-9].[0-9]{6},\"buyIso\":\"BYN\"");
+                + ",\"buyRate\":[0-9]\\.[0-9]{6},\"buyIso\":\"BYN\"");
         Matcher matcher = pattern.matcher(content);
-        Pattern pattern1 = Pattern.compile("[0-9].[0-9]{6}"); // формат ответа у архива другой
+        Pattern pattern1 = Pattern.compile("[0-9]\\.[0-9]{6}"); // формат ответа у архива другой
         Matcher matcher1 = pattern1.matcher(content);
-        Pattern datePattern1 = Pattern.compile("[0-9]{2}.[0-9]{2}.[0-9].{4}");
+        Pattern datePattern1 = Pattern.compile("[0-9]{2}\\.[0-9]{2}\\.[0-9].{4}");
         Matcher dateMatcher1 = datePattern1.matcher(content);
 
         if (matcher.find()) {
@@ -61,7 +60,7 @@ public class AlfaLoader extends SiteLoader {
             }
         }
 
-        pattern = Pattern.compile("[0-9].[0-9]{2,6}"); // поиск курса типа double
+        pattern = Pattern.compile("[0-9]\\.[0-9]{2,6}"); // поиск курса типа double
         matcher = pattern.matcher(searchString);
 
         Pattern datePattern = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}"); // простой шаблон для поиска даты
@@ -77,9 +76,9 @@ public class AlfaLoader extends SiteLoader {
                     + currencyName.getRatio() + " " + currencyName + " = "
                     + searchString.substring(matcher.start(), matcher.start() + 5) + " BYN\n";
         } else if (!matcher.find()) { // вывод архивного курса
-            return "Date: " + content.substring(dateMatcher1.start(), dateMatcher1.start() + 2) + "-"
+            return "Date: " + content.substring(dateMatcher1.start() + 6, dateMatcher1.end() - 1) + "-"
                     + content.substring(dateMatcher1.start() + 3, dateMatcher1.start() + 5) + "-"
-                    + content.substring(dateMatcher1.start() + 6, dateMatcher1.end() - 1) + " "
+                    + content.substring(dateMatcher1.start(), dateMatcher1.start() + 2) + " "
                     + currencyName.getRatio() + " " + currencyName + " = "
                     + searchString.substring(0, 5) + " BYN\n";
         }

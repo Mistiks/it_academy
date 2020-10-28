@@ -1,11 +1,14 @@
-package homeworks.homework8;
+package homeworks.homework8.loaders;
+
+import homeworks.homework8.utils.DateUtil;
+import homeworks.homework8.utils.FileUtil;
 
 import java.util.Calendar;
 
 /**
  * Загрузчик курса с сайта Нац. Банка
  */
-public class NBRBLoader extends SiteLoader{
+public class NBRBLoader extends SiteLoader {
     private final String fileName = "Currency_NBRB.txt";
 
     @Override
@@ -26,8 +29,8 @@ public class NBRBLoader extends SiteLoader{
     @Override
     public String loadDate(SiteLoader.Currency currencyName, Calendar calendar) {
         return load("https://www.nbrb.by/api/exrates/rates/" + currencyName.getId() + "?ondate="
-                + calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH)
-                + "-" + calendar.get(Calendar.DAY_OF_MONTH), currencyName);
+                + calendar.get(Calendar.YEAR) + "-" + getCalendarMonth(calendar)
+                + "-" + getCalendarDay(calendar), currencyName);
     }
 
     /**
