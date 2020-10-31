@@ -1,10 +1,6 @@
 package homeworks.homework8.loaders;
 
-import homeworks.homework4.entity.DataContainer;
-
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -45,8 +41,6 @@ public abstract class SiteLoader {
 
     private Calendar firstDate;
     private Calendar secondDate;
-
-    private DataContainer<String> container;
 
     public void setFirstDate(Calendar firstDate) {
         this.firstDate = firstDate;
