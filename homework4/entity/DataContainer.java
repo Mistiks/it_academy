@@ -12,7 +12,10 @@ public class DataContainer<T> {
     public DataContainer(Class<T> type, int elementsCounter) {
         this.elementsCounter = elementsCounter;
         this.data = (T[]) Array.newInstance(type, elementsCounter);
-        System.out.println("Объект успешно создан");
+    }
+
+    public int getElementsCounter() {
+        return elementsCounter;
     }
 
     public int add(T item) {
@@ -40,10 +43,6 @@ public class DataContainer<T> {
 
     public T get(int index) {
         return this.data[index];
-    }
-
-    public T[] getItems() {
-        return this.data;
     }
 
     public boolean delete(int index) {

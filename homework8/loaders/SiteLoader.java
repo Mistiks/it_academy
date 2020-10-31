@@ -1,5 +1,7 @@
 package homeworks.homework8.loaders;
 
+import homeworks.homework4.entity.DataContainer;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +19,6 @@ public abstract class SiteLoader {
         USD("145", 840, 1),
         EUR("292", 978, 1),
         RUB("298", 643, 100);
-        //BYN("933", 933);
 
         private final String id;
         private final int alfaId;
@@ -44,6 +45,8 @@ public abstract class SiteLoader {
 
     private Calendar firstDate;
     private Calendar secondDate;
+
+    private DataContainer<String> container;
 
     public void setFirstDate(Calendar firstDate) {
         this.firstDate = firstDate;
@@ -121,37 +124,6 @@ public abstract class SiteLoader {
             throw new RuntimeException("Не получилось загрузить курсы валют");
         }
         return handle(content.toString(), currencyName);
-    }
-
-    /**
-     * Метод для создания файла, где хранятся курсы валют
-     * @param loader - экземпляр загрузчика сайтов
-     * @param path - путь, введенный с клавиатуры
-     * @return путь к файлу
-     */
-    public String createFile(SiteLoader loader, String path) {
-        File f = new File(path + loader.getFileName());
-
-        try { // попытка создания файла, используя указанный пользователем путь
-            if (f.createNewFile()) {
-                System.out.println("Файл создан");
-            } else {
-                System.out.println("Файл уже существует");
-            }
-        } catch (IOException e) { // путь неверный, создаём файл рядом с программой
-            System.out.println(e.getMessage());
-            f = new File(loader.getFileName());
-            try {
-                if (f.createNewFile()) {
-                    System.out.println("Файл создан в директории по умолчанию");
-                } else {
-                    System.out.println("Файл уже существует в директории по умолчанию");
-                }
-            } catch (IOException error) {
-                System.out.println(error.getMessage());
-            }
-        }
-        return f.getPath();
     }
 
     public abstract String load(SiteLoader.Currency currencyName);

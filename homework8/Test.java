@@ -10,7 +10,8 @@ public class Test {
     public static void main(String[] args) {
         String filePath;
         Scanner scanner = new Scanner(System.in);
-        FileUtil fileUtil = new FileUtil();
+        FileUtil fileUtilNBRB = new FileUtil();
+        FileUtil fileUtilAlfa = new FileUtil();
         SiteLoader loaderNBRB = new NBRBLoader();
         SiteLoader loaderAlfa = new AlfaLoader();
 
@@ -18,7 +19,7 @@ public class Test {
         System.out.println("Введите путь к файлам. При неверном или пустом вводе файл будет создан в папке по умолчанию");
         filePath = scanner.nextLine();
 
-        fileUtil.printRates(loaderNBRB, filePath, args);
-        fileUtil.printRates(loaderAlfa, filePath, args);
+        fileUtilNBRB.printRates(loaderNBRB, filePath, args);
+        fileUtilAlfa.printRates(loaderAlfa, filePath, args);
     }
 }
